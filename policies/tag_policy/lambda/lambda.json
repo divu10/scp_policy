@@ -1,0 +1,65 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "DenyIfDivisionNotPresent",
+        "Effect": "Deny",
+        "Action": [
+          "lambda:CreateFunction"
+        ],
+        "Resource": [
+          "arn:aws:lambda:*:*:function:*"
+        ],
+        "Condition": {
+          "Null": {
+            "aws:RequestTag/Division": "true"
+          }
+        }
+      },
+      {
+        "Sid": "DenyIfStudioNotPresent",
+        "Effect": "Deny",
+        "Action": [
+          "lambda:CreateFunction"
+        ],
+        "Resource": [
+          "arn:aws:lambda:*:*:function:*"
+        ],
+        "Condition": {
+          "Null": {
+            "aws:RequestTag/Studio": "true"
+          }
+        }
+      },
+      {
+        "Sid": "Statement1",
+        "Effect": "Deny",
+        "Action": [
+          "lambda:UntagResource"
+        ],
+        "Resource": [
+          "arn:aws:lambda:*:*:function:*"
+        ],
+        "Condition": {
+          "ForAnyValue:StringEquals": {
+            "aws:TagKeys": "Division"
+          }
+        }
+      },
+      {
+        "Sid": "Statement2",
+        "Effect": "Deny",
+        "Action": [
+          "lambda:UntagResource"
+        ],
+        "Resource": [
+          "arn:aws:lambda:*:*:function:*"
+        ],
+        "Condition": {
+          "ForAnyValue:StringEquals": {
+            "aws:TagKeys": "Studio"
+          }
+        }
+      }
+    ]
+  }
