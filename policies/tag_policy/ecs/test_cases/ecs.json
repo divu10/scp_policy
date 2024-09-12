@@ -1,0 +1,67 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "Statement1",
+        "Effect": "Deny",
+        "Action": [
+          "ecs:CreateCluster",
+          "ecs:CreateService"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "Null": {
+            "aws:RequestTag/Division": "true"
+          }
+        }
+      },
+      {
+        "Sid": "Statement2",
+        "Effect": "Deny",
+        "Action": [
+          "ecs:CreateCluster",
+          "ecs:CreateService"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "Null": {
+            "aws:RequestTag/Studio": "true"
+          }
+        }
+      },
+      {
+        "Sid": "Statement3",
+        "Effect": "Deny",
+        "Action": [
+          "ecs:UntagResource"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "ForAnyValue:StringEquals": {
+            "ecs:ResourceTag/Division": "CD"
+          }
+        }
+      },
+      {
+        "Sid": "Statement4",
+        "Effect": "Deny",
+        "Action": [
+          "ecs:UntagResource"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "ForAnyValue:StringEquals": {
+            "ecs:ResourceTag/Studio": "Ajax"
+          }
+        }
+      }
+    ]
+  }
